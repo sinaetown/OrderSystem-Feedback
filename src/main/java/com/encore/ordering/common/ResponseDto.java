@@ -9,9 +9,5 @@ import org.springframework.http.HttpStatus;
 public class ResponseDto {
     private HttpStatus status;
     private String message;
-    private Object dataId;
-
-//    public ResponseDto(HttpStatus httpStatus, String message, Object dataId){
-//
-//    }
+    private Object result;
 }

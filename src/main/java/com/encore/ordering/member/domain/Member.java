@@ -1,6 +1,8 @@
 package com.encore.ordering.member.domain;
 
 import com.encore.ordering.member.domain.Address;
+import com.encore.ordering.member.dto.MemberCreateReqDto;
+import com.encore.ordering.member.dto.MemberResponseDto;
 import com.encore.ordering.order.domain.Ordering;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -45,4 +47,19 @@ public class Member {
 
     @UpdateTimestamp
     private LocalDateTime updatedTime;
+
+    public static Member toEntity(MemberCreateReqDto memberCreateReqDto) {
+        Address address = new Address(memberCreateReqDto.getCity(),
+                memberCreateReqDto.getStreet(),
+                memberCreateReqDto.getZipcode());
+
+        Member member = Member.builder()
+                .name(memberCreateReqDto.getName())
+                .email(memberCreateReqDto.getEmail())
+                .address(address)
+                .password(memberCreateReqDto.getPassword())
+                .role(Role.USER).build();
+        
+        return member;
+    }
 }
