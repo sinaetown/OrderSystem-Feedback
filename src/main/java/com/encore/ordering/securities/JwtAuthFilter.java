@@ -3,6 +3,7 @@ package com.encore.ordering.securities;
 import com.encore.ordering.common.ErrorResponseDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,9 @@ import java.util.List;
 
 @Component
 public class JwtAuthFilter extends GenericFilter {
+    @Value("${jwt.secretKey}")
+    private String secretKey;
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -35,7 +39,7 @@ public class JwtAuthFilter extends GenericFilter {
 //        bearer token에서 토큰값만 추출
                 String token = bearerToken.substring(7);
 //        토큰 검증 및 claims 추출
-                Claims claims = Jwts.parser().setSigningKey("mysecret").parseClaimsJws(token).getBody();
+                Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
 //        Authentication 객체를 생성하기 위한 UserDetails 생성
                 List<GrantedAuthority> authorities = new ArrayList<>();
                 authorities.add(new SimpleGrantedAuthority("ROLE_" + claims.get("role")));

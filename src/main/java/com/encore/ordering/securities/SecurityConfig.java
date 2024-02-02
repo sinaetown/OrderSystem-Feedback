@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .antMatchers("/member/create",
                         "/doLogin",
                         "/items",
-                        "/item/image/**")
+                        "/item/*/image")
                 .permitAll() // 위 end point들은 인증이 필요 없다
                 .anyRequest().authenticated() // 나머지는 인증이 필요하다
                 .and()
