@@ -50,6 +50,10 @@ public class Item {
         this.stockQuantity = newQuantity;
     }
 
+    public void increaseStockQuantity(int newQuantity) {
+        this.stockQuantity = newQuantity;
+    }
+
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
