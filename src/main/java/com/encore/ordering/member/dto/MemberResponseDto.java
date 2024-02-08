@@ -21,7 +21,7 @@ public class MemberResponseDto {
         memberResponseDtoBuilder.id(member.getId());
         memberResponseDtoBuilder.name(member.getName());
         memberResponseDtoBuilder.email(member.getEmail());
-        builder().orderCount(member.getOrderings().size());
+        memberResponseDtoBuilder.orderCount(member.getOrderings().size());
         Address address = member.getAddress();
         if (address != null) {
             memberResponseDtoBuilder.city(member.getAddress().getCity());

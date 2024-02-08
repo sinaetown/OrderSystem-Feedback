@@ -32,6 +32,9 @@ public class MemberService {
     }
 
     public Member create(MemberCreateReqDto memberCreateReqDto) {
+        if(memberRepository.findByEmail(memberCreateReqDto.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("같은 이메일의 회원이 존재합니다!");
+        }
         memberCreateReqDto.setPassword(passwordEncoder.encode(memberCreateReqDto.getPassword()));
         Member member = Member.toEntity(memberCreateReqDto);
         return memberRepository.save(member);

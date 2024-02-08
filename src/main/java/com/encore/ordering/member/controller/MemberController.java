@@ -54,7 +54,6 @@ public class MemberController {
         return orderService.findMyOrders();
     }
 
-
     @GetMapping("/member/myInfo") //Authentication 객체에서 바로 회원 관련 정보를 빼내겠다는
     public MemberResponseDto findMyInfo() {
         return memberService.findMyInfo();
