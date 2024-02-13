@@ -38,14 +38,14 @@ public class OrderService {
         this.itemRepository = itemRepository;
     }
 
-    public Ordering create(OrderReqDto orderReqDto) {
+    public Ordering create(List<OrderReqDto> orderReqDtos) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Member member = memberRepository.findByEmail(email).orElseThrow(()
                 -> new EntityNotFoundException("Member email is invalid."));
         Ordering ordering = Ordering.builder().member(member).build();
 //        Ordering 객체가 생성될 때 OrderingItem 객체도 함께 생성 : cascading
-        for (OrderReqDto.OrderReqItemDto dto : orderReqDto.getOrderReqItemDtos()) {
+        for (OrderReqDto dto : orderReqDtos) {
             Item item = itemRepository.findById(dto.getItemId()).orElseThrow(()
                     -> new EntityNotFoundException("invalid item ID"));
             OrderItem orderItem = OrderItem
